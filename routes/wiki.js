@@ -1,8 +1,7 @@
 const express = require('express'),
 bodyParser = require('body-parser'),
 nunjucks = require('nunjucks'),
-app = express(),
-router = app.Router(),
+router = express.Router(),
 models = require('../models'),
 Page = models.Page,
 User = models.User;

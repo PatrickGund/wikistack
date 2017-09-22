@@ -4,9 +4,9 @@ const server = http.createServer();
 var Promise = require('bluebird');
 server.on('request', require('./app'));
 
-models.Page.sync({force: true})
+models.Page.sync({})
 .then(function(){
-    models.Users.sync({force:true})
+    models.User.sync({})
 })
 .then(function(){
     server.listen(3001, function(){
