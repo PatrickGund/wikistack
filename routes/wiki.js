@@ -21,9 +21,22 @@ router.get('/add', function(req, res, next){
 });
 
 router.post('/', function (req, res, next){
-    Page.create({})
-    .then(function(pages){
-        res.render('index', {pages:pages})
+    console.log(req.body, "req.body");
+    User.findOrCreate({
+        where: {
+            name: req.body.name,
+            email: req.body.email
+        }
     })
-    .catch(next)
+    .spread(function (user, createdPageBool) {
+        return Page.create(req.body)
+            .then(function (page) {
+                return page.setAuthor(user);
+            });
+    })
+    .then(function (page) {
+        res.redirect(page.route);
+    })
+    .catch(next);
 });
+
